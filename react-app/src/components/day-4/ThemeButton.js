@@ -1,11 +1,15 @@
 import {lightTheme, darkTheme} from '../../styles'
+import { THEME, UseTheme } from '../Day-5/ThemeContext'
 
-function ThemeButton ({theme, setTheme}) {
+function ThemeButton () {
+    const {theme, setTheme} = UseTheme()
+    console.log(setTheme);
+    
     return(
         <button onClick={
-            () => setTheme(theme === 'Light' ? 'Dark' : 'Light')
+            () => setTheme(theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT)
         } style={{
-            backgroundColor: theme === 'Light' ? lightTheme.button : darkTheme.button,
+            backgroundColor: theme === THEME.LIGHT ? lightTheme.button : darkTheme.button,
             color: darkTheme.text,
             padding: '10px 20px',
             border: 'none',
