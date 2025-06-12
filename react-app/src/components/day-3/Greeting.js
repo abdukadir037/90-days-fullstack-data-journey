@@ -1,5 +1,7 @@
+import { getCurrentDay } from "../../utils/date";
+
 function Greeting(props) {
-    const day = new Date().toLocaleDateString('en-US', {weekday: 'long'});
+    const day = getCurrentDay()
     return(
         <div>
             <h1> {props.name ? `Hello, ${props.name}!`: 'Hello, Guest!'}
