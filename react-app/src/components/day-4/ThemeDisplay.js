@@ -1,9 +1,11 @@
+import { lightTheme, darkTheme } from "../../styles"
+
 export function ThemeDisplay({theme}) {
     return(
         <div style={{
             padding: '20px',
-            backgroundColor: theme === 'Light' ? '#f0f0f0' : '#1a1a1a',
-            color: theme === 'Light' ? '#333' : '#fff',
+            backgroundColor: theme === 'Light' ? lightTheme.bg : darkTheme.bg,
+            color: theme === 'Light' ? lightTheme.text : darkTheme.text,
             textAlign: "center",
             minHeight: '100vh'
         }}>

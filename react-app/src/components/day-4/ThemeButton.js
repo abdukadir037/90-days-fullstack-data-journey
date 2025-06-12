@@ -1,10 +1,12 @@
+import {lightTheme, darkTheme} from '../../styles'
+
 function ThemeButton ({theme, setTheme}) {
     return(
         <button onClick={
             () => setTheme(theme === 'Light' ? 'Dark' : 'Light')
         } style={{
-            backgroundColor: theme === 'Light' ? '#3498db' : '#2c3e50',
-            color: "white",
+            backgroundColor: theme === 'Light' ? lightTheme.button : darkTheme.button,
+            color: darkTheme.text,
             padding: '10px 20px',
             border: 'none',
             borderRadius: '5px',
