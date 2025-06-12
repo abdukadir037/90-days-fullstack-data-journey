@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from "react";
 
-
 // step 1
 export const ThemeContext = createContext()
 
