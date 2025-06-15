@@ -1,15 +1,28 @@
-import ThemeButton from './components/day-4/ThemeButton'
-import { ThemeDisplay } from "./components/day-4/ThemeDisplay";
-import {ThemeProvider} from "./components/Day-5/ThemeContext"
+import { useState } from 'react';
+import {TodoForm} from './components/day-7/TodoForm'
+import {TodoList} from './components/day-7/TodoList'
 
 function App() {
-  return (
-    <div>
+  const [todos,setTodos] = useState([])
 
-      <ThemeProvider>
-        <ThemeButton />
-        <ThemeDisplay/>
-      </ThemeProvider>
+  const addTodo = (text) => {
+    setTodos([...todos, {id: Date.now(), completed: false, text}])
+  }
+
+  function deleteTodo(id) {
+        setTodos(todos.filter(todo => todo.id !== id))
+    }
+
+  
+  function toggleComplete(id) {
+    setTodos(todos.map(todo => todo.id === id ? {...todo, completed: !todo.completed} : todo))
+  }
+
+  return (
+    <div className='App'>
+      <h1>Todo App (Day 7)</h1>
+      <TodoForm addTodo={addTodo}/>
+      <TodoList toggleComplete={toggleComplete} deletedTodo={deleteTodo} todos={todos}/>
     </div>
   )
 }
