@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {TodoForm} from './components/day-7/TodoForm'
-import {TodoList} from './components/day-7/TodoList'
+// import {TodoList} from './components/day-7/TodoList'
+import TodoList from './components/day-7/TodoList'
 
 function App() {
   const [todos,setTodos] = useState([])
@@ -31,7 +32,7 @@ function App() {
     <div className='App'>
       <h1>Todo App (Day 7)</h1>
       <TodoForm addTodo={addTodo}/>
-      <TodoList editingId={editingId} setEditingId={setEditinId} onEdit={updateTodo} toggleComplete={toggleComplete} deletedTodo={deleteTodo} todos={todos}/>
+      <TodoList editingId={editingId} setEditingId={setEditinId} onEdit={updateTodo} onToggle={toggleComplete} onDelete={deleteTodo} todos={todos}/>
     </div>
   )
 }
