@@ -1,19 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {TodoForm} from './components/day-7/TodoForm'
 // import {TodoList} from './components/day-7/TodoList'
 import TodoList from './components/day-7/TodoList'
 
 function App() {
   // const [todos,setTodos] = useState([])
+  const STORAGE_VERSION = 'todos-v1'
+  localStorage.getItem(STORAGE_VERSION)
+
   const [todos, setTodos] = useState(() => {
   const saved = localStorage.getItem('todos')
   return saved ? JSON.parse(saved) : []
 })
 
 
-  const addTodo = (text) => {
-    setTodos([...todos, {id: Date.now(), completed: false, text}])
-  }
+  const addTodo = useCallback((text) => {
+    setTodos(prev => [...prev, {id: Date.now(), completed: false, text}])
+  }, [])
 
 
   // useEffect(() => {
@@ -22,7 +25,10 @@ function App() {
   // }, [])
 
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos))
+    const timer = setTimeout(() => {
+      localStorage.setItem('todos', JSON.stringify(todos))
+    }, 500)
+    return () => clearTimeout(timer);
   }, [todos])
 
   function deleteTodo(id) {
