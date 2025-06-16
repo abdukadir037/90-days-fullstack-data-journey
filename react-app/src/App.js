@@ -18,11 +18,20 @@ function App() {
     setTodos(todos.map(todo => todo.id === id ? {...todo, completed: !todo.completed} : todo))
   }
 
+  const [editingId, setEditinId] = useState(null)
+  
+  function updateTodo(id, newText) {
+    setTodos(todos.map(todo => todo.id === id ? {...todo, text: newText} : todo
+    ))
+
+    setEditinId(null)
+  }
+
   return (
     <div className='App'>
       <h1>Todo App (Day 7)</h1>
       <TodoForm addTodo={addTodo}/>
-      <TodoList toggleComplete={toggleComplete} deletedTodo={deleteTodo} todos={todos}/>
+      <TodoList editingId={editingId} setEditingId={setEditinId} onEdit={updateTodo} toggleComplete={toggleComplete} deletedTodo={deleteTodo} todos={todos}/>
     </div>
   )
 }
