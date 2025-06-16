@@ -1,24 +1,39 @@
 import { useState } from "react";
-import './Todo.css'
+import './Todo.css';
 
-export function TodoForm({addTodo}) {
-    const [input, setInput] = useState("")
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (input.trim()) addTodo(input)
-        setInput("")
-    };
+export function TodoForm({ addTodo }) {
+  const [input, setInput] = useState("");
+  const [error, setError] = useState("");
 
-    return (
-        <form className="todo-form" onSubmit={handleSubmit}>
-            <input
-            type="text"
-            value={input}
-            className="form-input"
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Add a task...."
-             />
-             <button className="form-button" type="submit">Add</button>
-        </form>
-    )
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!input.trim()) {
+      setError("⚠ Task cannot be empty");
+      return;
+    }
+    addTodo(input.trim());
+    setInput("");
+    setError("");
+  };
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+    if (error) setError(""); // Clear error as user types
+  };
+
+  return (
+    <form className="todo-form" onSubmit={handleSubmit}>
+      <div className="input-group">
+        <input
+          type="text"
+          value={input}
+          onChange={handleChange}
+          placeholder="Add a task..."
+          className={`form-input ${error ? 'input-error' : ''}`}
+        />
+        <button className="form-button" type="submit">Add</button>
+      </div>
+      {error && <p className="error-text">{error}</p>}
+    </form>
+  );
 }

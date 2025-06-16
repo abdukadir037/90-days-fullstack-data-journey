@@ -110,43 +110,67 @@
 }
 
 
-
-/* Form styling */
+/* --- Form Styling --- */
 .todo-form {
-  display: flex;
-  gap: 10px;
-  margin: 20px 0;
-  padding: 10px;
-  background: #f1f3f5;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin: 24px auto;
+  max-width: 600px;
+  width: 100%;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
+/* --- Input Group (Flex row) --- */
+.input-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* --- Input Styling --- */
 .form-input {
   flex: 1;
   padding: 10px 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
   font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  transition: border-color 0.2s, background-color 0.2s;
 }
 
 .form-input:focus {
   border-color: #5c7cfa;
+  background-color: #f0f4ff;
+  outline: none;
 }
 
+/* --- Button Styling --- */
 .form-button {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 500;
   background-color: #5c7cfa;
   color: white;
-  font-weight: bold;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 .form-button:hover {
   background-color: #4c6ef5;
+}
+
+/* --- Error Styling --- */
+.input-error {
+  border-color: #fa5252;
+  background-color: #fff5f5;
+}
+
+.error-text {
+  margin-top: 8px;
+  color: #fa5252;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
