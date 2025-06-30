@@ -76,6 +76,8 @@ export default function TodoList({
   const handleSave = (id) => {
     if (editText.trim()) {
       onEdit(id, editText.trim());
+      setEditText('')
+      setEditingId(null)
     }
   };
 
@@ -89,7 +91,7 @@ export default function TodoList({
       {todos.map(todo => (
         <li 
           key={todo.id}
-          className={`todo-item ${todo.completed ? 'completed' : ''}`}
+          className={`todo-item ${todo.isComplete ? 'completed' : ''}`}
         >
           {editingId === todo.id ? (
             <div className="edit-mode">
@@ -121,7 +123,7 @@ export default function TodoList({
             <div className="view-mode">
               <input
                 type="checkbox"
-                checked={todo.completed}
+                checked={todo.isComplete}
                 onChange={() => onToggle(todo.id)}
                 className="toggle"
               />

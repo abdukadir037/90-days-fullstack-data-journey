@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import './Todo.css';
 
 export function TodoForm({ addTodo }) {
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
+
+  const inputRef = useRef(null)
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  })
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -11,7 +17,14 @@ export function TodoForm({ addTodo }) {
       setError("⚠ Task cannot be empty");
       return;
     }
-    addTodo(input.trim());
+
+    const newTodo = {
+      id: Date.now(),
+      text: input.trim(),
+      isComplete: false
+    }
+
+    addTodo(newTodo);
     setInput("");
     setError("");
   };
@@ -25,6 +38,7 @@ export function TodoForm({ addTodo }) {
     <form className="todo-form" onSubmit={handleSubmit}>
       <div className="input-group">
         <input
+          ref={inputRef}
           type="text"
           value={input}
           onChange={handleChange}
