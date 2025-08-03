@@ -31,9 +31,9 @@ const addTodo = async (newItem) => {
     body: JSON.stringify(newItem)
   })
   const data = await res.json()
-  console.log(data.newTodo);
+  console.log(data);
   
-  setTodos(prev => [...prev, data.newTodo])
+  setTodos(prev => [...prev, data])
 }
 
 
@@ -59,13 +59,32 @@ const addTodo = async (newItem) => {
           method: 'DELETE',
         })
 
-        if(res.ok) setTodos(todos.filter(todo => todo.id !== id))
+        if(res.ok) setTodos(todos.filter(todo => todo._id !== id))
     }
 
+      
+    const toggleComplete = async (id) =>  {
+      const todo = todos.find(todo => todo._id === id);
+      const updatedTodo = { ...todo, completed: !todo.completed };
+
+      const res = await fetch(`http://localhost:5000/api/todos/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ completed: updatedTodo.completed })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setTodos(todos.map(todo =>
+          todo._id === id ? data : todo
+        ));
+      }
+    };
+
+
   
-  function toggleComplete(id) {
-    setTodos(todos.map(todo => todo.id === id ? {...todo, isComplete: !todo.isComplete} : todo))
-  }
 
   const [editingId, setEditinId] = useState(null)
 
@@ -82,7 +101,7 @@ const addTodo = async (newItem) => {
       const updated = await res.json()
       setTodos(prev =>
         prev.map(todo => (
-          todo.id === id ? updated.todo : todo
+          todo._id === id ? updated : todo
         ))
       )
     }

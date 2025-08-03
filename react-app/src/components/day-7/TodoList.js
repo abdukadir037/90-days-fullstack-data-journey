@@ -69,7 +69,7 @@ export default function TodoList({
   }, [editingId]);
 
   const handleEdit = (todo) => {
-    setEditingId(todo.id);
+    setEditingId(todo._id);
     setEditText(todo.text);
   };
 
@@ -90,22 +90,22 @@ export default function TodoList({
     <ul className="todo-list">
       {todos.map(todo => (
         <li 
-          key={todo.id}
-          className={`todo-item ${todo.isComplete ? 'completed' : ''}`}
+          key={todo._id}
+          className={`todo-item ${todo.completed ? 'completed' : ''}`}
         >
-          {editingId === todo.id ? (
+          {editingId === todo._id ? (
             <div className="edit-mode">
               <input
                 ref={editInputRef}
                 type="text"
                 value={editText}
                 onChange={(e) => setEditText(e.target.value)}
-                onKeyDown={(e) => handleKeyDown(e, todo.id)}
+                onKeyDown={(e) => handleKeyDown(e, todo._id)}
                 className="edit-input"
               />
               <div className="edit-actions">
                 <button 
-                  onClick={() => handleSave(todo.id)}
+                  onClick={() => handleSave(todo._id)}
                   disabled={!editText.trim()}
                   className="save-btn"
                 >
@@ -123,8 +123,8 @@ export default function TodoList({
             <div className="view-mode">
               <input
                 type="checkbox"
-                checked={todo.isComplete}
-                onChange={() => onToggle(todo.id)}
+                checked={todo.completed}
+                onChange={() => onToggle(todo._id)}
                 className="toggle"
               />
               <span className="todo-text">{todo.text}</span>
@@ -137,7 +137,7 @@ export default function TodoList({
                   ✏️
                 </button>
                 <button 
-                  onClick={() => onDelete(todo.id)}
+                  onClick={() => onDelete(todo._id)}
                   className="delete-btn"
                   aria-label="Delete"
                 >
@@ -157,6 +157,6 @@ TodoList.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onToggle: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
-  editingId: PropTypes.number,
+  editingId: PropTypes.string,
   setEditingId: PropTypes.func.isRequired
 };
